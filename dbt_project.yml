@@ -1,7 +1,8 @@
+
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
-name: 'tcph_sf1'
+name: 'tpch_sf1'
 version: '1.0.0'
 config-version: 2
 dbt-cloud:
@@ -38,5 +39,5 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   my_new_project:
     # Applies to all files under models/example/
-    example:
+    staging:
       +materialized: table
