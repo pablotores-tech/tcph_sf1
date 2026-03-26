@@ -10,15 +10,15 @@ lineitem as (
 
     select
         l_orderkey as line_order_id,
-        l_partkey as line_part,
-        l_suppkey as line_supp,
+        l_partkey as line_part_id,
+        l_suppkey as line_supplier_id,
         l_linenumber as line_number,
         l_quantity as line_quantity,
         l_extendedprice as line_extended_price,
         l_discount as line_discount,
         l_tax as line_tax,
         l_returnflag as line_return_flag,
-        l_linestatus as line_line_status,
+        l_linestatus as line_status,
         l_shipdate as line_ship_date,
         l_commitdate as line_commit_date,
         l_receiptdate as line_receipt_date,
