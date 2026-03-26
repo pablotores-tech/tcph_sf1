@@ -17,6 +17,11 @@ sources:
                   arguments:
                     to: ref('stg_tpch_sf1__nation')
                     field: nation_id
+          - name: c_mktsegment
+            data_tests:
+              - accepted_values:
+                  arguments:
+                    values: ['HOUSEHOLD','BUILDING','AUTOMOBILE','MACHINERY','FURNITURE']
       - name: lineitem
         columns:
             - name: l_partkey
@@ -33,6 +38,21 @@ sources:
                     arguments:
                       to: ref('stg_tpch_sf1__supplier')
                       field: supplier_id
+            - name: l_returnflag
+              data_tests:
+                - accepted_values:
+                    arguments:
+                      values: ['N','R','A']
+            - name: l_linestatus
+              data_tests:
+                - accepted_values:
+                    arguments:
+                      values: ['F','O']
+            - name: l_shipinstruct
+              data_tests:
+                - accepted_values:
+                    arguments:
+                      values: ['NONE','COLLECT COD','DELIVER IN PERSON','TAKE BACK RETURN']
       - name: nation
         columns:
             - name: n_nationkey
@@ -59,6 +79,21 @@ sources:
                     arguments:
                       to: ref('stg_tpch_sf1__customer')
                       field:  customer_id
+            - name: o_orderstatus
+              data_tests:
+                - accepted_values:
+                    arguments:
+                      values: ['F','O','P']
+            - name: o_shippriority
+              data_tests:
+                - accepted_values:
+                    arguments:
+                      values: ['0']
+            - name: o_orderpriority
+              data_tests:
+                - accepted_values:
+                    arguments:
+                      values: ['1-URGENT','2-HIGH','3-MEDIUM','4-NOT SPECIFIED','5-LOW']
       - name: part
         columns:
               - name: p_partkey
