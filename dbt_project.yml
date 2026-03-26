@@ -37,7 +37,10 @@ clean-targets:         # directories to be removed by `dbt clean`
 # using the `{{ config(...) }}` macro.
 
 models:
-  my_new_project:
+  tpch_sf1:
     # Applies to all files under models/example/
     staging:
+      #+schema: tpch_sf1
       +materialized: table
+    mart:
+      +materialized: view
