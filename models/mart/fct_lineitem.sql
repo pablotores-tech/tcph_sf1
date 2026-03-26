@@ -5,9 +5,8 @@ lineitem as (
 parts_supplied as (
     select * from {{ ref("dim_parts_supplied") }}
 ),
-
-orders as (
-    select * from {{ ref("dim_orders") }}
+time as (
+    select * from {{ ref("dim_time") }}
 )
 
 select
@@ -38,19 +37,8 @@ select
     ps.supplier_nation,
     ps.supplier_region,
     ps.available_quantity,
-    ps.supply_cost,
-
-    o.order_customer_id,
-    o.order_status,
-    o.order_total_price,
-    o.order_date,
-    o.order_priority,
-    o.order_clerk,
-    o.order_ship_priority,
-    o.customer_market_segment,
-    o.customer_nation,
-    o.customer_region
+    ps.supply_cost
 
 from lineitem li
     join parts_supplied ps on ps.part_id = li.line_part_id and ps.supplier_id = li.line_supplier_id
-    join orders o on o.order_id = li.line_order_id
+    join time t on t.date_day = line_ship_date or  t.date_day = line_commit_date or  t.date_day = line_receipt_date

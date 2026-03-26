@@ -5,6 +5,9 @@ orders as (
 customer as (
     select * from {{ ref("dim_customer") }}
 
+),
+time as (
+    select * from {{ ref("dim_time") }}
 )
 
 select
@@ -21,3 +24,4 @@ select
     c.customer_region
 from orders o
     join customer c on o.order_customer_id = c.customer_id
+    join time t on t.date_day = order_date

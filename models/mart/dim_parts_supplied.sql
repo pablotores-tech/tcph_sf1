@@ -2,8 +2,8 @@ with
 parts_supplied as (
     select * from {{ ref("int_tpch_sf1__parts_supplied") }}
 ),
-location as (
-    select * from {{ ref("int_tpch_sf1__location") }}
+geography as (
+    select * from {{ ref("dim_geography") }}
 
 )
 
@@ -29,5 +29,5 @@ select
 
 
 from parts_supplied as ps
-    join location as l on ps.supplier_nation = l.nation_id
+    join geography as l on ps.supplier_nation = l.nation_id
 

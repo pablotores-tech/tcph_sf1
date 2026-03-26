@@ -2,8 +2,8 @@ with
 customer as (
     select * from {{ ref("stg_tpch_sf1__customer") }}
 ),
-location as (
-    select * from {{ ref("int_tpch_sf1__location") }}
+geography as (
+    select * from {{ ref("dim_geography") }}
 
 )
 
@@ -14,4 +14,4 @@ select
     l.nation_name as customer_nation,
     l.region_name as customer_region
 from customer c
-    join location l on c.customer_nation = l.nation_id
+    join geography l on c.customer_nation = l.nation_id
