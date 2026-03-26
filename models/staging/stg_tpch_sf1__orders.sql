@@ -15,6 +15,7 @@ orders as (
         o_totalprice as order_total_price,
         o_orderdate as order_date,
         substring(o_orderpriority,3,16) as order_priority,
+        --o_orderpriority as order_priority,
         substring(o_clerk,7,9) as order_clerk,
         o_shippriority as order_ship_priority,
         o_comment as order_comment
@@ -22,5 +23,5 @@ orders as (
     from source
 
 )
-
-select * from orders
+select * 
+from orders

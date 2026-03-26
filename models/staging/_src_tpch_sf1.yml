@@ -1,15 +1,141 @@
 version: 2
-
 sources:
   - name: tpch_sf1
     database: SNOWFLAKE_SAMPLE_DATA
     schema: tpch_sf1
     tables:
       - name: customer
+        columns:
+          - name: c_custkey
+            data_tests:
+              - unique
+              - not_null
+          - name: c_nationkey
+            data_tests:
+              - not_null
+              - relationships:
+                  arguments:
+                    to: ref('stg_tpch_sf1__nation')
+                    field: nation_id
+          - name: c_mktsegment
+            data_tests:
+              - accepted_values:
+                  arguments:
+                    values: ['HOUSEHOLD','BUILDING','AUTOMOBILE','MACHINERY','FURNITURE']
       - name: lineitem
+        columns:
+            - name: l_partkey
+              data_tests:
+                - not_null
+                - relationships:
+                    arguments:
+                      to: ref('stg_tpch_sf1__part')
+                      field: part_id
+            - name: l_suppkey
+              data_tests:
+                - not_null
+                - relationships:
+                    arguments:
+                      to: ref('stg_tpch_sf1__supplier')
+                      field: supplier_id
+            - name: l_returnflag
+              data_tests:
+                - accepted_values:
+                    arguments:
+                      values: ['N','R','A']
+            - name: l_linestatus
+              data_tests:
+                - accepted_values:
+                    arguments:
+                      values: ['F','O']
+            - name: l_shipinstruct
+              data_tests:
+                - accepted_values:
+                    arguments:
+                      values: ['NONE','COLLECT COD','DELIVER IN PERSON','TAKE BACK RETURN']
       - name: nation
+        columns:
+            - name: n_nationkey
+              data_tests:
+                - unique
+                - not_null
+            - name: n_regionkey
+              data_tests:
+                - not_null
+                - relationships:
+                    arguments:
+                      to: ref('stg_tpch_sf1__region')
+                      field: region_id
       - name: orders
+        columns:
+            - name:  o_orderkey
+              data_tests:
+                - unique
+                - not_null
+            - name:  o_custkey
+              data_tests:
+                - not_null
+                - relationships:
+                    arguments:
+                      to: ref('stg_tpch_sf1__customer')
+                      field:  customer_id
+            - name: o_orderstatus
+              data_tests:
+                - accepted_values:
+                    arguments:
+                      values: ['F','O','P']
+            - name: o_shippriority
+              data_tests:
+                - accepted_values:
+                    arguments:
+                      values: ['0']
+            - name: o_orderpriority
+              data_tests:
+                - accepted_values:
+                    arguments:
+                      values: ['1-URGENT','2-HIGH','3-MEDIUM','4-NOT SPECIFIED','5-LOW']
       - name: part
+        columns:
+              - name: p_partkey
+                data_tests:
+                  - unique
+                  - not_null
       - name: partsupp
+        columns:
+              - name: ps_partkey
+                data_tests:
+                  - unique
+                  - not_null
+              - name: ps_partkey
+                data_tests:
+                  - not_null
+                  - relationships:
+                      arguments:
+                        to: ref('stg_tpch_sf1__part')
+                        field: part_id
+              - name: ps_suppkey
+                data_tests:
+                  - not_null
+                  - relationships:
+                      arguments:
+                        to: ref('stg_tpch_sf1__supplier')
+                        field: supplier_id
       - name: region
+        columns:
+            - name: r_regionkey
+              data_tests:
+                - unique
+                - not_null
       - name: supplier
+        columns:
+            - name: s_suppkey
+              data_tests:
+                - unique
+                - not_null
+            - name: s_nationkey
+              data_tests:
+                - not_null
+                - relationships:
+                    arguments:
+                      to: ref('stg_tpch_sf1__nation')
+                      field: nation_id

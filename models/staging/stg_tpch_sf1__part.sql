@@ -23,4 +23,4 @@ part as (
 
 )
 
-select * from part
+select part_type from part group by part_type
